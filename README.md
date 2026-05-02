@@ -10,5 +10,21 @@ I have implemented the basic set of logic gates using a Hardware Description Lan
 - **16-bit variants:** `Not16`, `And16`, `Or16`, `Mux16`  
 - **Multi-way components:** `Or8Way`, `Mux4Way16`, `Mux8Way16`, `DMux4Way`, `DMux8Way`
 
-## Objective  
-The next step is to build on this foundation by designing a functional Arithmetic Logic Unit (ALU), and ultimately assembling a complete 16-bit computer system.
+## Progress: Project 2 Complete  
+Implemented the core arithmetic components of the CPU.
+
+- **Adders:** `HalfAdder`, `FullAdder`, `Add16`, `Inc16`  
+- **Arithmetic Logic Unit (ALU):** A central component designed to execute 18 different functions based on six control inputs ($zx, nx, zy, ny, f, no$). 
+
+## Progress: Project 3 Complete  
+Added memory and stateful components to the system.
+
+- **Registers:** `Bit` (1-bit storage) and `Register` (16-bit word storage).  
+- **RAM Units:** `RAM8`, `RAM64`, `RAM512`, `RAM4K`, and `RAM16K` modules.
+- **Program Counter (PC):** A specialized 16-bit register with increment, load, and reset functionality.
+
+## Progress: Project 4 (In Progress)
+
+## Progress: Project 5 (In Progress)
+
+## Progress: Project 6 (In Progress)
