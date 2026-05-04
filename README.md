@@ -23,7 +23,12 @@ Added memory and stateful components to the system.
 - **RAM Units:** `RAM8`, `RAM64`, `RAM512`, `RAM4K`, and `RAM16K` modules.
 - **Program Counter (PC):** A specialized 16-bit register with increment, load, and reset functionality.
 
-## Progress: Project 4 (In Progress)
+## Progress: Project 4 Complete
+I implemented low-level programs using the Hack Assembly Language to understand how the CPU interacts with RAM and I/O devices.
+
+- **Mult.asm:** An implementation of a multiplication algorithm using repetitive addition. Since the Hack ALU does not have a hardware-based multiplier, this program demonstrates how complex arithmetic is handled at the software level.
+
+- ** Fill.asm:** An interactive program that handles I/O device mapping. It continuously polls the keyboard register and manipulates the screen's memory map to toggle pixels between black and white.
 
 ## Progress: Project 5 (In Progress)
 
