@@ -9,6 +9,12 @@ I have implemented the basic set of logic gates using a Hardware Description Lan
 - **Elementary gates:** `Not`, `And`, `Or`, `Xor`, `Mux`, `Demux`  
 - **16-bit variants:** `Not16`, `And16`, `Or16`, `Mux16`  
 - **Multi-way components:** `Or8Way`, `Mux4Way16`, `Mux8Way16`, `DMux4Way`, `DMux8Way`
+#### Ekstra addings
+- IsEqual: A digital comparator that checks if two 16-bit inputs are identical.
+- Majority: A 3-way voting logic gate (outputs 1 if 2 or more inputs are 1).
+- Mux3Way16: Optimized selection between three 16-bit inputs.
+- And3 / Or3: Triple-input basic gates for cleaner nested logic.
+
 
 ## Progress: Project 2 Complete  
 Implemented the core arithmetic components of the CPU.
