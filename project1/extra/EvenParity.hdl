@@ -1,0 +1,8 @@
+CHIP EvenParity {
+ IN a, b, c, d;
+ OUT out;
+ PARTS:
+ Xor(a=a, b=b, out=p1);
+ Xor(a=c, b=d, out=p2);
+ Xor(a=p1, b=p2, out=out);
+}
