@@ -1,0 +1,9 @@
+CHIP Mux {
+    IN a, b, sel;
+    OUT out;
+    PARTS:
+    Not(in=sel, out=nsel);
+    And(a=a, b=nsel, out=wire1);
+    And(a=b, b=sel, out=wire2);
+    Or(a=wire1, b=wire2, out=out);
+}

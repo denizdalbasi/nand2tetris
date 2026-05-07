@@ -1,0 +1,13 @@
+CHIP Mux3Way16 {
+    IN a[16], b[16], c[16], sel[2];
+    OUT out[16];
+
+    PARTS:
+    // İlk iki giriş arasında seçim yap (sel[0] ile)
+    Mux16(a=a, b=b, sel=sel[0], out=muxAB);
+    
+    // c girişi ile önceki seçim arasında karar ver (sel[1] ile)
+    // Eğer sel[1] == 1 ve sel[0] == 0 ise 'c' seçilir.
+    // Eğer sel[1] == 1 ve sel[0] == 1 ise geçersizdir, 0 döner (basitleştirilmiş mantık).
+    Mux16(a=muxAB, b=c, sel=sel[1], out=out);
+}

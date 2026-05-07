@@ -1,0 +1,8 @@
+CHIP IsEqual {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    Xor(a=a, b=b, out=diff);
+    Not(in=diff, out=out);
+}
