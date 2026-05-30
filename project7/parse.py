@@ -2,7 +2,6 @@
 class Parser:
     def __init__(self, file_path):
         with open(file_path, "r") as f:
-            #self.lies yerine self.lines, .sprit() -> .strip() oldu
             self.lines = [
                 line.split('//')[0].strip()
                 for line in f.readlines()
@@ -12,16 +11,14 @@ class Parser:
         self.current_comment = ""
 
     def commend(self):
-        # self.lines olarak güncellendi
         return (self.current_index + 1) < len(self.lines)
     
     def advance(self):
-        #  = -1 yerine += 1 yapıldı ki her seferinde sonraki satıra geçebilsin
         self.current_index += 1
         self.current_comment = self.lines[self.current_index]
 
     def commendType(self):
-        aritmethicCommend = {'add','sub','neg','eq','gt','lt','and','or','not'} #git eksikti eklendi
+        aritmethicCommend = {'add','sub','neg','eq','gt','lt','and','or','not'} 
         firstWord = self.current_comment.split()[0]
         if firstWord in aritmethicCommend:
             return "C_ARITHMETIC"
