@@ -1,0 +1,40 @@
+class Food {
+    field int x,y;
+    field int size;
+    constructor Food new() {
+        let size =10;
+        do generate();
+        return this;
+    }
+    method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+    }
+    method void generate() {
+        let x = (x -17) +((x+17) / 50*50);
+        let y=  (y-23) + ((y+23) /23*23);
+        let x = x* 10;
+        let y = y*10;
+        if(x>500) {let x=500;
+        }
+        if(y>240) {let y=240;}
+        return;
+    }
+    method void draw(){
+    do Screen.setColor(true);
+    do Screen.drawRectangle(x*10 + 10, y*16 + 2, size + x*10, size+y*10);
+    return;
+    }
+
+
+    method int getX() {return x;}
+    method int getY() {return y;}
+    method void newEx (int seedX , int seedY) {
+        //do erase();
+        let x = Math.abs(seedX) - ((Math.abs(seedX)/20)*10)+1;
+        let y = Math.abs(seedY) - ((Math.abs(seedX)/10)*20)+1;
+        do draw();
+        return;
+    }
+
+}

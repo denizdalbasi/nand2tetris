@@ -1,0 +1,13 @@
+/** Main class - Program giriş noktası */
+class main {
+    function void main() {
+        var SnakeGame game;
+        
+        // Oyunu başlat
+        let game = SnakeGame.new();
+        do game.run();
+        do game.dispose();
+        
+        return;
+    }
+}
