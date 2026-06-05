@@ -1,61 +1,53 @@
-# Nand2Tetris: Logic Gate Implementation  
-**Building the Foundation of a 16-bit Computer**
+# Nand2Tetris: Building a 16-bit Computer
+**From Logic Gates to a Complete Computer System**
 
-This repository covers the projects of the Nand2Tetris curriculum. The goal is to be able to build a computer from scratch, starting with a single NAND gate and using it to build all fundamental logic components.
+This repository shows my progress in the Nand2Tetris course. The goal is to build a modern computer from scratch. I started with a single NAND gate and used it to build all the necessary hardware and software parts.
 
-## Progress: Project 1 Complete  
-I have implemented the basic set of logic gates using a Hardware Description Language (HDL), including:
+## Progress: Project 1 Complete
+I built basic logic gates using Hardware Description Language (HDL).
+- **Basic gates:** `Not`, `And`, `Or`, `Xor`, `Mux`, `Demux`
+- **16-bit versions:** `Not16`, `And16`, `Or16`, `Mux16`
+- **Complex gates:** `Or8Way`, `Mux4Way16`, `Mux8Way16`, `DMux4Way`, `DMux8Way`
+- **Extra:** `IsEqual`, `Majority`, `Mux3Way16`, `And3`, `Or3`.
 
-- **Elementary gates:** `Not`, `And`, `Or`, `Xor`, `Mux`, `Demux`  
-- **16-bit variants:** `Not16`, `And16`, `Or16`, `Mux16`  
-- **Multi-way components:** `Or8Way`, `Mux4Way16`, `Mux8Way16`, `DMux4Way`, `DMux8Way`
-#### Ekstra addings
-- IsEqual: A digital comparator that checks if two 16-bit inputs are identical.
-- Majority: A 3-way voting logic gate (outputs 1 if 2 or more inputs are 1).
-- Mux3Way16: Optimized selection between three 16-bit inputs.
-- And3 / Or3: Triple-input basic gates for cleaner nested logic.
+## Progress: Project 2 Complete
+I built the arithmetic parts of the computer.
+- **Adders:** `HalfAdder`, `FullAdder`, `Add16`, `Inc16`
+- **ALU:** The Arithmetic Logic Unit, which performs 18 different math and logic operations. 
 
+## Progress: Project 3 Complete
+I added memory so the computer can "remember" data.
+- **Storage:** `Bit` and `Register` (16-bit).
+- **RAM:** Various sizes (`RAM8` to `RAM16K`).
+- **PC:** The Program Counter, which keeps track of the next instruction to run. 
 
-## Progress: Project 2 Complete  
-Implemented the core arithmetic components of the CPU.
+[Image of D flip-flop circuit diagram]
 
-- **Adders:** `HalfAdder`, `FullAdder`, `Add16`, `Inc16`  
-- **Arithmetic Logic Unit (ALU):** A central component designed to execute 18 different functions based on six control inputs ($zx, nx, zy, ny, f, no$). 
-
-## Progress: Project 3 Complete  
-Added memory and stateful components to the system.
-
-- **Registers:** `Bit` (1-bit storage) and `Register` (16-bit word storage).  
-- **RAM Units:** `RAM8`, `RAM64`, `RAM512`, `RAM4K`, and `RAM16K` modules.
-- **Program Counter (PC):** A specialized 16-bit register with increment, load, and reset functionality.
 
 ## Progress: Project 4 Complete
-I implemented low-level programs using the Hack Assembly Language to understand how the CPU interacts with RAM and I/O devices.
-
-- **Mult.asm:** An implementation of a multiplication algorithm using repetitive addition. Since the Hack ALU does not have a hardware-based multiplier, this program demonstrates how complex arithmetic is handled at the software level.
-
-- **Fill.asm:** An interactive program that handles I/O device mapping. It continuously polls the keyboard register and manipulates the screen's memory map to toggle pixels between black and white.
+I wrote programs in Hack Assembly Language to learn how software talks to the hardware.
+- **Mult.asm:** A program to multiply two numbers.
+- **Fill.asm:** An interactive program that paints the screen black when you press a key on the keyboard.
 
 ## Progress: Project 5 Complete
-I integrated the previously built components to create the full Hack computer architecture and ensure it can correctly execute machine language instructions.
-
-- **CPU.hdl** The central processing unit decodes instructions, routes data through the ALU, and manages the program counter to execute arithmetic and logic operations.
-- **Memory.hdl** This module combines the 16K RAM, Screen memory map, and Keyboard register into a single address space accessible by the CPU.
-- **Computer.hdl**is top-level chip connects the CPU, Memory, and ROM32K to form a complete system capable of running programs such as Fill.asm
-- **Instruction Decoding** The CPU uses dedicated logic to distinguish between A-instructions for addressing and C-instructions for computation and jumps.
-- **Program Counter (PC)** The PC determines the address of the next instruction, supporting sequential execution, conditional jumps, and resets.
-
+I put everything together to create the full Hack Computer architecture.
+- **CPU:** The brain of the computer that handles all instructions.
+- **Memory:** A single address space for RAM, the Screen, and the Keyboard.
+- **Computer:** The final chip that connects the CPU, Memory, and ROM to run programs.
 
 ## Progress: Project 6 Complete
-Built a symbolic assembler in Python that translates Hack assembly language into binary machine code, bridging the gap between hardware and low-level software.
+I built an **Assembler** using Python. It translates the Assembly code (text) into binary machine code (0s and 1s) that the computer understands.
+- **Two-pass translation:** It reads the code twice to turn symbols (like labels and variables) into real addresses.
+- **Code translation:** It converts instructions into the 16-bit binary format.
 
-- **assembler.py**  The main script manages the two-pass compilation process, translating symbolic assembly instructions into executable binary code.
+## Progress: Project 7 & 8 Complete
+I built a **Virtual Machine (VM) Translator**. This allows high-level code to run on our computer.
+- **Stack-based logic:** I implemented commands like `push`, `pop`, `add`, and `sub`.
+- **Program flow:** I added `label`, `goto`, and `if-goto` to control how the program runs.
+- **Functions:** I implemented `function`, `call`, and `return` so the computer can run complex, multi-file programs. 
 
-- **Add.asm / Max.asm / Rect.asm** These source files contain symbolic Hack assembly programs for addition, finding a maximum value, and drawing a rectangle.
-
-- **Add.hack** This output file contains the final 16-bit binary machine code generated by the assembler, ready to be loaded into the Hack computer’s ROM.
-
-- **Symbolic Resolution** The assembler uses a dynamic symbol table to map user-defined labels and variables to their corresponding RAM and ROM addresses.
-- **Code Translation**  This logic converts C-instruction mnemonics and decimal A-instructions into the 16-bit binary patterns required by the Hack CPU specification.
-
-
+## Progress: Project 9 Complete
+I built a game using the **Jack** programming language.
+- **Snake Game:** I created an interactive game where the user moves a snake around the screen to "eat" and grow.
+- **Object-Oriented Design:** I used classes like `Snake`, `Game`, and `Main` to organize my code.
+- **Interactivity:** The game uses the keyboard to change direction and the screen memory map to draw the movement in real-time.
