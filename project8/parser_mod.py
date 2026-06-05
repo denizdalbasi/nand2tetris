@@ -3,8 +3,6 @@ class Parser:
         self.commands = []
         self.current_command = None
         self.pointer = 0
-        
-        # Read file and clean up lines
         with open(filepath, 'r') as file:
             for line in file:
                 clean_line = line.split('//')[0].strip()
@@ -20,22 +18,13 @@ class Parser:
 
     def command_type(self) -> str:
         cmd = self.current_command[0]
-        arithmetic = ['add', 'sub', 'neg', 'eq', 'gt', 'lt', 'and', 'or', 'not']
-        
-        if cmd in arithmetic: return "C_ARITHMETIC"
-        elif cmd == "push":    return "C_PUSH"
-        elif cmd == "pop":     return "C_POP"
-        elif cmd == "label":   return "C_LABEL"
-        elif cmd == "goto":    return "C_GOTO"
-        elif cmd == "if-goto": return "C_IF"
-        elif cmd == "function":return "C_FUNCTION"
-        elif cmd == "return":  return "C_RETURN"
-        elif cmd == "call":    return "C_CALL"
+        if cmd in ['add', 'sub', 'neg', 'eq', 'gt', 'lt', 'and', 'or', 'not']: return "C_ARITHMETIC"
+        if cmd == "push": return "C_PUSH"
+        if cmd == "pop": return "C_POP"
+        return "OTHER"
 
-    def arg1(self) -> str:
-        if self.command_type() == "C_ARITHMETIC":
-            return self.current_command[0]
-        return self.current_command[1]
+    def arg1(self):
+        return self.current_command[0] if self.command_type() == "C_ARITHMETIC" else self.current_command[1]
 
-    def arg2(self) -> int:
+    def arg2(self):
         return int(self.current_command[2])

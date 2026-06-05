@@ -1,18 +1,16 @@
 class CodeWriter:
     def __init__(self, output_file):
         self.file = open(output_file, 'w')
-        self.filename = ""
-        self.label_counter = 0  # For generating unique jump labels (eq, gt, lt)
-        self.call_counter = 0   # For generating unique return labels for function calls
 
-    def set_file_name(self, filename):
-        # Crucial for handling static variables uniquely per file
-        self.filename = filename.split('/')[-1].replace('.vm', '')
+    def write_arithmetic(self, command):
+        if command == "add":
+            self.file.write("@SP\nAM=M-1\nD=M\n@SP\nAM=M-1\nM=M+D\n@SP\nM=M+1\n")
+        elif command == "sub":
+            self.file.write("@SP\nAM=M-1\nD=M\n@SP\nAM=M-1\nM=M-D\n@SP\nM=M+1\n")
 
-    def write_init(self):
-        """Writes the bootstrap code that initializes the VM."""
-        # 1. SP = 256
-        asm = ["@256", "D=A", "@SP", "M=D"]
-        self.file.write("\n".join(asm) + "\n")
-        # 2. Call Sys.init
-        self.write_call("Sys.init", 0)
+    def write_push_pop(self, command, segment, index):
+        if command == "C_PUSH" and segment == "constant":
+            self.file.write(f"@{index}\nD=A\n@SP\nA=M\nM=D\n@SP\nM=M+1\n")
+
+    def close(self):
+        self.file.close()
