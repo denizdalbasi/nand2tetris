@@ -1,0 +1,39 @@
+class SnakeGame {
+    field Snake snake;
+    field Food food;
+    field boolean exit;
+
+    constructor SnakeGame new() {
+        let snake = Snake.new(10, 10);
+        let food = Food.new();
+        let exit = false;
+        return this;
+    }
+
+    method void run() {
+        var char key;
+        while (~exit) {
+            let key = Keyboard.keyPressed();
+            if (key = 81) { let exit = true; } // Q to quit
+            if (key = 131) { do snake.setDir(1); }
+            if (key = 132) { do snake.setDir(2); }
+            if (key = 133) { do snake.setDir(3); }
+            if (key = 130) { do snake.setDir(4); }
+
+            do snake.move();
+            
+            // Logic: if snake eats food, grow and respawn food
+            // You can add your collision detection here
+            
+            do Sys.wait(100); // Speed control
+        }
+        return;
+    }
+
+    method void dispose() {
+        do snake.dispose();
+        do food.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

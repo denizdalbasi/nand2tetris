@@ -1,96 +1,57 @@
 class Snake {
-field Array histX, histY;
-field int length;
-field int dir;
-field int size;
-field int headX,headY;
-constructor Snake new (int Ax , int Ay){
-    let histX = Array.new(30);
-    let histY = Array.new(30);
-    let length = 4;
-    let headX = Ax;
-    let headY = Ay;
-    let dir = 2;
-    let size =10;
-    let histX[0] = headX;
-    let histY[0] = headY;
-    let histX[1] = headX;
-    let histY[1] = headY; 
-    let histX[2] = headX;
-    let histY[2] = headY;
-    do draw();
-    return this;
-}
-method void dispose(){
-    do histX.dispose();
-    do histY.dispose();
-    do Memory.deAlloc(this);
-    return;
-}
-method int getHeadX(){ return headX;}
-method int getHeadY(){ return headY;}
-method void draw(){ 
-   var int a;
-    do Screen.setColor(true);
-    let a = 0;
-    while(a < length){
-        do Screen.drawRectangle(histX[a]*11+1,histY[a]*11+1,(histX[a]*12,(histY[a]*12) + 9);
-        let a = a+1;
+    field Array bodyX, bodyY;
+    field int length, dir, size;
+
+    constructor Snake new(int Ax, int Ay) {
+        let bodyX = Array.new(50);
+        let bodyY = Array.new(50);
+        let length = 4;
+        let size = 10;
+        let dir = 2; // 1:Up, 2:Right, 3:Down, 4:Left
+        let bodyX[0] = Ax; let bodyY[0] = Ay;
+        let bodyX[1] = Ax-1; let bodyY[1] = Ay;
+        let bodyX[2] = Ax-2; let bodyY[2] = Ay;
+        let bodyX[3] = Ax-3; let bodyY[3] = Ay;
+        return this;
+    }
+
+    method void draw() {
+        var int a;
+        do Screen.setColor(true);
+        let a = 0;
+        while (a < length) {
+            do Screen.drawRectangle(bodyX[a] * size, bodyY[a] * size, 
+                                    (bodyX[a] * size) + size, (bodyY[a] * size) + size);
+            let a = a + 1;
+        }
+        return;
+    }
+
+    method void move() {
+        var int a;
+        // Shift body parts
+        let a = length - 1;
+        while (a > 0) {
+            let bodyX[a] = bodyX[a-1];
+            let bodyY[a] = bodyY[a-1];
+            let a = a - 1;
+        }
+        // Move head
+        if (dir = 1) { let bodyY[0] = bodyY[0] - 1; }
+        if (dir = 2) { let bodyX[0] = bodyX[0] + 1; }
+        if (dir = 3) { let bodyY[0] = bodyY[0] + 1; }
+        if (dir = 4) { let bodyX[0] = bodyX[0] - 1; }
+        return;
+    }
+
+    method void setDir(int d) { let dir = d; return; }
+    method int getHeadX() { return bodyX[0]; }
+    method int getHeadY() { return bodyY[0]; }
     
+    method void dispose() {
+        do bodyX.dispose();
+        do bodyY.dispose();
+        do Memory.deAlloc(this);
+        return;
     }
-    return;
-}
-method void move (){
-    var int a;
-    var int newHeadX, newHeadY;
-    let newHeadX = bodyX[0];
-    let nnewHeadY = bodyY[0];
-    if(dir =1) {let newHeadY = newHeadY - size;}
-    if(dir=2){let newHeadX = newHeadX + size;}
-    if(dir=3){let newHeadY = newHeadY + size;}
-    if(dir = 4) {let newHeadX = newHeadX-size;}
-    let a = length -1;
-    while(a>0){
-    let bodyX[a] = bodyX[a-1];
-    let codyY[a] = bodyY[a-1];
-    }
-    let bodyX[0] = newHeadX;
-    let bodyY[0] = newHeadY;
-    return;
-}
-method void grow(){
-let lenght = length+1;
-let bodyX[length-1] = bodyX[length-2];
-let bodyY[length-1] = bodyY[length-2];
-return;
-}
-method boolean checkCollision(){
-var int a;
-var int headX, headY;
-let headX = bodyX[0];
-let headY = bodyY[0];
-if((headX<0) |(headX>100) | (headY <0) |headY>30)){
-    return false;
-}
-let a= 1;
-while(a<length){
-    if((headX = bodyX[a]) & (headY = bodyY[a])){
-        return true;
-    }
-    let a = a+1;
-}
-return true;
-}
-method boolean hasFood(int foodX, int foodY){
-    if((bodyX[0] = foodX) & (bodyY[0] = foodY)){
-        return true;
-    }
-    return false;
-}
-method void disponse(){
-    do bodyX.disponse();
-    do bodyY.disponse();
-    do Memory.deAlloc(this);
-    return;
-}
 }
