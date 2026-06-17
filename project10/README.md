@@ -1,14 +1,15 @@
-# Project 10: Syntax Analyzer (Compiler Part 1) - Nand2Tetris
+# Project 10: Jack Language Syntax Analyzer
 
-Welcome to Project 10 of the Nand2Tetris course. In this project, i  will build a **Syntax Analyzer**. This is the first part of the compiler that translates Jack code into Hack computer instructions.
+This project is a foundational compiler tool built in Java. Its primary goal is to take human-readable source code written in the Jack language and "deconstruct" it into a structured XML format. By doing this, it creates a visual map of the code's hierarchy—essentially showing exactly how a computer understands the syntax, logic, and structure of a program.
+
+Think of this as the "under-the-hood" look at how programming languages are parsed before they are turned into machine code.
 
 ---
 
-## What does this project do?
-A syntax analyzer reads my source code (written in the Jack language) and checks if the grammar is correct. 
+## structure
 
-Instead of translating the code into machine language right away, this project translates the code into an **XML structure** (a parse tree). This helps us see if our analyzer understands the structure of the Jack program correctly.
+This analyzer is organized into three specialized "workers" (Java classes) that handle different stages of the process:
 
-The analyzer does two main jobs:
-1. **The Tokenizer:** Breaks the code into small pieces like keywords, symbols, identifiers, and constants.
-2. **The Compilation Engine:** Uses the tokens to understand the grammar rules (like `if`, `while`, or mathematical expressions) and writes the XML output.
+* **`JackAnalyzer.java` (The Manager):** This is the entry point. Its job is to handle the file system. Whether you feed it a single file or an entire folder of code, it orchestrates the process and makes sure everything gets sent to the right place.
+* **`jacktoken.java` (The Translator):** Before you can analyze grammar, you have to break sentences into words. This class reads your raw code, cleans out comments and extra spaces, and chops it up into meaningful "tokens"—like recognizing that `class` is a keyword or that `+` is a symbol.
+* **`CompilationEngine.java` (The Architect):** This is where the heavy lifting happens. It takes the stream of tokens from the translator and builds the final product. Using a technique called "recursive descent parsing," it reads through the tokens and carefully writes an XML file that maps out the structure of classes, methods, and logic statements.
