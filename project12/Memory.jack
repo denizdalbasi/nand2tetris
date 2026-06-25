@@ -1,0 +1,69 @@
+// File name: projects/12/Memory.jack
+
+class Memory {
+    static Array ram;
+    static Array freeList;
+    
+    // Linked list node parameters relative to base pointer offset
+    static int FL_LENGTH; // offset 0
+    static int FL_NEXT;   // offset 1
+
+    /** Initializes memory parameters. */
+    function void init() {
+        let ram = 0; // Tricks the compiler to let 'ram' reference address 0
+        let freeList = 2048; // Heap starting address
+        let FL_LENGTH = 0;
+        let FL_NEXT = 1;
+        
+        let freeList[FL_LENGTH] = 14336; // Initial heap size block (16384 - 2048)
+        let freeList[FL_NEXT] = null;
+        return;
+    }
+
+    /** Returns the value of the main memory at the given address. */
+    function int peek(int address) {
+        return ram[address];
+    }
+
+    /** Sets the value of the main memory at this address to the given value. */
+    function void poke(int address, int value) {
+        let ram[address] = value;
+        return;
+    }
+
+    /** Finds and allocates a memory block of the specified size. */
+    function int alloc(int size) {
+        var Array prevBlock, currBlock, nextBlock;
+        let prevBlock = null;
+        let currBlock = freeList;
+        
+        // First-fit search algorithm
+        while (~(currBlock = null)) {
+            if (currBlock[FL_LENGTH] > (size + 2)) {
+                // Fragment a chunk out of the block from the end side
+                let nextBlock = currBlock + currBlock[FL_LENGTH] - size - 2;
+                let nextBlock[FL_LENGTH] = size;
+                let nextBlock[FL_NEXT] = null;
+                
+                // Adjust remaining segment track length
+                let currBlock[FL_LENGTH] = currBlock[FL_LENGTH] - size - 2;
+                
+                return nextBlock + 2; // Return actual usable data block address
+            }
+            let prevBlock = currBlock;
+            let currBlock = currBlock[FL_NEXT];
+        }
+        
+        do Sys.error(6); // Out of memory allocation error code
+        return null;
+    }
+
+    /** Deallocates the given object and appends it back to the freeList chain. */
+    function void dealloc(int object) {
+        var Array block;
+        let block = object - 2; // Move back to headers
+        let block[FL_NEXT] = freeList; // Prepend to current head of freelist
+        let freeList = block;
+        return;
+    }    
+}
