@@ -1,50 +1,43 @@
-// File name: projects/12/Sys.jack
-
 class Sys {
 
-    /** Performs all the initializations required by the OS. */
     function void init() {
-        do Math.init();
-        do Memory.init();
-        do Screen.init();
-        do Output.init();
-        do Keyboard.init();
-        
-        do Main.main();
-        do Sys.halt();
-        return;
+      do Keyboard.init();
+      do Math.init();
+      do Memory.init();
+      do Output.init();
+      do Screen.init();
+      do Main.main();
+      do Sys.halt();
+      return;
     }
 
-    /** Halts execution indefinitely. */
     function void halt() {
-        while (true) {
-            // Dead loop to safely lock the CPU state
-        }
-        return;
+      while (true) {
+      }
+      return;
     }
 
-    /** Waits approximately duration milliseconds and then returns. */
     function void wait(int duration) {
-        var int i, j;
-        if (duration < 0) {
-            do Sys.error(1); // Invalid duration error code
+      var int i;
+      while (duration > 1000) {
+        while (i < (1000 * 20)) {
+          let i = i + 1;
         }
-        let i = 0;
-        while (i < duration) {
-            let j = 0;
-            while (j < 200) { // Cycle calibrator tuned for the Hack VM Emulator
-                let j = j + 1;
-            }
-            let i = i + 1;
-        }
-        return;
+        let duration = duration - 1000;
+      }
+
+      let i = 0;
+      while (i < (duration * 20)) {
+        let i = i + 1;
+      }
+
+      return;
     }
 
-    /** Prints the given error code in the form "ERR<errorCode>", and halts. */
     function void error(int errorCode) {
-        do Output.printString("ERR");
-        do Output.printInt(errorCode);
-        do Sys.halt();
-        return;
+      do Output.printString("ERR");
+      do Output.printInt(errorCode);
+      do Sys.halt();
+      return;
     }
 }

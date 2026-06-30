@@ -1,41 +1,52 @@
 # Nand2Tetris - Project 12: The Operating System
 
-This project contains the complete implementation of the **Jack Operating System (OS)**. The OS is a collection of 8 standard library classes written in the high-level Jack language. It closes the final gap in the Nand2Tetris software stack, allowing Jack programs to talk directly to the Hack computer hardware.
+This project contains the complete code for the **Jack Operating System (OS)**. The OS is a group of 8 standard library classes written in the high-level Jack programming language. It fills the final gap in the Nand2Tetris software stack. With this OS, Jack programs can talk directly to the Hack computer hardware.
 
 ---
 
 ## The 8 OS Classes Included
 
 ### 1. `Sys.jack`
-The bootstrapper of the OS. When the computer turns on, it runs `Sys.init()`, which initializes all the other OS classes and then starts your main program (`Main.main()`). It also handles system freezes (`Sys.halt()`) and execution delays (`Sys.wait()`).
+
+This class starts the OS. When you turn on the computer, it runs `Sys.init()`. This method starts all the other OS classes and then opens your main program (`Main.main()`). It also handles system freezes (`Sys.halt()`) and execution delays (`Sys.wait()`).
 
 ### 2. `Memory.jack`
-Manages the computer's RAM. It uses a **First-Fit Linked List** algorithm to manage heap allocations (`2048` to `16383`).
-* `Memory.peek(address)`: Reads directly from a RAM address.
-* `Memory.poke(address, value)`: Writes directly to a RAM address.
-* `Memory.alloc(size)` & `Memory.dealloc(object)`: Handles dynamic memory management.
+
+This class manages the computer's RAM. It uses a **First-Fit Linked List** method to manage heap memory allocations (from address `2048` to `16383`).
+
+- `Memory.peek(address)`: Reads data directly from a RAM address.
+- `Memory.poke(address, value)`: Writes data directly to a RAM address.
+- `Memory.alloc(size)` & `Memory.dealloc(object)`: Handles dynamic memory allocation and cleanup.
 
 ### 3. `Math.jack`
-Provides basic mathematical functions that the Hack hardware cannot do by itself.
-* Uses an array of powers-of-two for fast bitwise checking.
-* Implements efficient binary shift-and-add for **multiplication**.
-* Implements recursive long-division for **division**.
-* Implements binary search for **square roots** ($\sqrt{x}$).
+
+This class provides basic mathematical functions because the Hack hardware cannot do math by itself.
+
+- It uses an array of powers-of-two to check bits quickly.
+- It implements an efficient binary shift-and-add method for **multiplication**.
+- It implements a recursive long-division method for **division**.
+- It implements a binary search method to find **square roots** ($\sqrt{x}$).
 
 ### 4. `Array.jack`
-A very simple class that allows Jack programs to use dynamic arrays. It connects the `Array.new()` method directly to `Memory.alloc()`.
+
+A very simple class that lets Jack programs use dynamic arrays. It connects the `Array.new()` method directly to `Memory.alloc()`.
 
 ### 5. `String.jack`
-Manages text strings. It handles dynamic memory allocations for characters and safely converts integers to text characters (ASCII values) and vice versa.
+
+This class manages text strings. It handles dynamic memory allocations for text and safely converts integers into text characters (ASCII values) and vice versa.
 
 ### 6. `Screen.jack`
-Handles drawing graphics on the Hack physical screen (`16384` to `24575`).
-* Draws single pixels by calculating exact memory bitmasks.
-* Implements **Bresenham's Line Algorithm** to draw straight diagonal lines without slow floating-point math.
-* Efficiently draws filled rectangles.
+
+This class handles drawing graphics on the Hack physical screen (from address `16384` to `24575`).
+
+- It draws single pixels by calculating exact memory bitmasks.
+- It implements **Bresenham's Line Algorithm** to draw straight diagonal lines without using slow floating-point math.
+- It quickly draws filled rectangles.
 
 ### 7. `Output.jack`
-Handles printing text characters on the screen. It maps fixed 11x8 pixel matrix fonts for every readable character in the ASCII table and manages cursor row/column positions.
+
+This class handles printing text characters on the screen. It maps fixed 11x8 pixel matrix fonts for every character in the ASCII table and manages the cursor's row and column positions.
 
 ### 8. `Keyboard.jack`
-Listens to the Hack keyboard memory-mapped register (`24576`). It allows the software to read individual pressed keys, read full text strings, and accept integer inputs from users.
+
+This class listens to the Hack keyboard memory-mapped register (address `24576`). It allows the software to read individual pressed keys, read full text strings, and accept integer inputs from users.

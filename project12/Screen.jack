@@ -1,0 +1,82 @@
+/**
+ * Graphic screen library.
+ */
+class Screen {
+    static boolean currentColor;
+    static Array powersOfTwo; 
+
+    function void init() {
+        let currentColor = true; 
+
+        let powersOfTwo = Array.new(16);
+        let powersOfTwo[0] = 1;
+        let powersOfTwo[1] = 2;
+        let powersOfTwo[2] = 4;
+        let powersOfTwo[3] = 8;
+        let powersOfTwo[4] = 16;
+        let powersOfTwo[5] = 32;
+        let powersOfTwo[6] = 64;
+        let powersOfTwo[7] = 128;
+        let powersOfTwo[8] = 256;
+        let powersOfTwo[9] = 512;
+        let powersOfTwo[10] = 1024;
+        let powersOfTwo[11] = 2048;
+        let powersOfTwo[12] = 4096;
+        let powersOfTwo[13] = 8192;
+        let powersOfTwo[14] = 16384;
+        
+        let powersOfTwo[15] = 16384 + 16384; 
+        return;
+    }
+
+    function void clearScreen() {
+        var int address;
+        let address = 16384;
+        while (address < 24576) {
+            do Memory.poke(address, 0); 
+            let address = address + 1;
+        }
+        return;
+    }
+
+    function void setColor(boolean b) {
+        let currentColor = b;
+        return;
+    }
+
+    function void drawPixel(int x, int y) {
+        var int address, value, bitMask;
+        
+        let address = 16384 + (y * 32) + (x / 16);
+        let value = Memory.peek(address);
+
+        let bitMask = powersOfTwo[x & 15]; 
+        
+        if (currentColor) {
+            let value = value | bitMask;
+        } else {
+            let value = value & ~bitMask; 
+        }
+        
+        do Memory.poke(address, value);
+        return;
+    }
+
+    function void drawRectangle(int x1, int y1, int x2, int y2) {
+        var int y;
+        let y = y1;
+        while (~(y > y2)) {
+            do Screen.drawLine(x1, y, x2, y);
+            let y = y + 1;
+        }
+        return;
+    }
+
+    function void drawLine(int x1, int y1, int x2, int y2) {
+        return;
+    }
+
+    function void drawCircle(int cx, int cy, int r) {
+        return;
+    }
+}
