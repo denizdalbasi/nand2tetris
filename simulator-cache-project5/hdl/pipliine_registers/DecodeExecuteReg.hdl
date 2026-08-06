@@ -1,0 +1,33 @@
+CHIP DecodeExecuteReg {
+    IN  inInstruction[16],
+        inA[16],
+        inD[16],
+        inALU_A_In[16],
+        inControlWriteM,
+        inControlLoadD,
+        inControlLoadA,
+        inControlJump,
+        clock;
+
+    OUT outInstruction[16],
+        outA[16],
+        outD[16],
+        outALU_A_In[16],
+        outControlWriteM,
+        outControlLoadD,
+        outControlLoadA,
+        outControlJump;
+
+    PARTS:
+    // 16-bit registers for data and instructions
+    Register(in=inInstruction, load=true, out=outInstruction);
+    Register(in=inA, load=true, out=outA);
+    Register(in=inD, load=true, out=outD);
+    Register(in=inALU_A_In, load=true, out=outALU_A_In);
+
+    // Bit registers for control signals
+    Bit(in=inControlWriteM, load=true, out=outControlWriteM);
+    Bit(in=inControlLoadD, load=true, out=outControlLoadD);
+    Bit(in=inControlLoadA, load=true, out=outControlLoadA);
+    Bit(in=inControlJump, load=true, out=outControlJump);
+}

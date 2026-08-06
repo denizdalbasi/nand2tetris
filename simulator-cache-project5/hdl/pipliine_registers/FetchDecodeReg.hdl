@@ -1,0 +1,8 @@
+CHIP FetchDecodeReg {
+    IN inPC[16], inInstruction[16], load, reset;
+    OUT outPC[16], outInstruction[16];
+
+    PARTS:
+    Register(in=inPC[0..15], load=load, out=outPC);
+    Register(in=inInstruction[0..15], load=load, out=outInstruction);
+}
