@@ -10,5 +10,4 @@ CHIP ForwardingUnit {
         forwardB[2];
 
     PARTS:
-    // Forwarding logic implementation for pipeline data hazards
 }

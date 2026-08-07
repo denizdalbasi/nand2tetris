@@ -1,0 +1,11 @@
+CHIP HazardDetectionUnit {
+    IN  ifIdInstruction[16],
+        idExRegisterA[16],
+        idExRegWrite;
+
+    OUT stall,
+        flush;
+
+    PARTS:
+    
+}
