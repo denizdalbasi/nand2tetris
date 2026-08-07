@@ -1,0 +1,14 @@
+CHIP ForwardingUnit {
+    IN  exMemRegister[3],
+        memWbRegister[3],
+        idExRegA[3],
+        idExRegB[3],
+        exMemRegWrite,
+        memWbRegWrite;
+
+    OUT forwardA[2],
+        forwardB[2];
+
+    PARTS:
+    // Forwarding logic implementation for pipeline data hazards
+}
